@@ -10,7 +10,8 @@ do
     Console.WriteLine("2: Restar");
     Console.WriteLine("3: Multiplicar");
     Console.WriteLine("4: Dividir");
-    Console.WriteLine("5: Limpiar");
+    Console.WriteLine("5: Mostrar Historial");
+    Console.WriteLine("6: Limpiar");
     Console.WriteLine("eliga una opcion:");
     int operacionElegida = default;
     int.TryParse(Console.ReadLine(), out operacionElegida);
@@ -42,6 +43,9 @@ do
     }
     else if (operacionElegida == 5)
     {
+        calculadora.MostrarHistorial();
+    }
+    else if (operacionElegida == 6){
         calculadora.Limpiar();
     }
     else
