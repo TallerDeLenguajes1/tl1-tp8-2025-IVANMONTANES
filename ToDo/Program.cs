@@ -1,12 +1,13 @@
 ﻿using System.Runtime.Intrinsics.Arm;
 using EspacioTareas;
-/*
+
 // generamos el numero random para la cantidad de tareas //
 Random numeroRandom = new Random();
 int n = numeroRandom.Next(1,25);
 Console.WriteLine(n);
-// creamos la lista //
+// creamos las lista //
 List<Tarea> tareasPendientes = new List<Tarea>();
+List<Tarea> tareasRealizadas = new List<Tarea>();
 // cargamos las tareas //
 Console.WriteLine($"Tareas que se cargaran : {n} tareas");
 for(int i = 0; i < n; i++){
@@ -47,7 +48,7 @@ for(int i = 0; i < n; i++){
     // añadimos la tarea a la lista //
     tareasPendientes.Add(tareaCargada);
 }
-*/
+
 
 // interfaz //
 bool seguir = true;
@@ -59,7 +60,46 @@ while(seguir){
     int opcionElegida = default;
     bool conversionExitosa = int.TryParse(Console.ReadLine(), out opcionElegida);
     if(conversionExitosa && opcionElegida >= 1 && opcionElegida <= 3){
-        Console.WriteLine("bien");
+        // usamos una declaracion switch para controlar los distintos casos //
+        switch (opcionElegida){
+            case 1: 
+                // mostramos la lista de tareas pendientes //
+                Console.WriteLine("============================= TAREAS PENDIENTES ============================");
+                for(int i = 0; i < tareasPendientes.Count; i++){
+                tareasPendientes[i].MostrarTarea();
+                }
+                bool idSeleccionadoValido = false;
+                do{
+                    Console.WriteLine("ingrese el id de la tarea:");
+                    int tareaElegidaId = default;
+                    string tareaElegidaIdString = Console.ReadLine();
+                    idSeleccionadoValido = int.TryParse(tareaElegidaIdString, out tareaElegidaId);
+                    // si se carga un numero recorremos la lista buscando el id //
+                    if(idSeleccionadoValido){
+                        // variable para indicar si se encuentra la tarea con ese id //
+                        bool tareaEncontrada = false;
+                        for(int i = 0; i < tareasPendientes.Count; i++){
+                            if(tareaElegidaId == tareasPendientes[i].TareaId){
+                                tareaEncontrada = true;
+                                // agregamos la tarea a la lista de realizadas //
+                                tareasRealizadas.Add(tareasPendientes[i]);
+                                // eliminamos la tarea de la lista de pendientes //
+                                tareasPendientes.RemoveAt(i);
+                            }
+                        }
+                        // avisamos en caso de no encontrarse la tarea con ese id //
+                        if(!tareaEncontrada){
+                            Console.WriteLine("no se encontro una tarea con ese id");
+                        }else{
+                            Console.WriteLine("Se movio la tarea a realizadas");
+                        }
+                    }else{
+                        Console.WriteLine("no se cargo un numero");
+                    }
+                }while(!idSeleccionadoValido);
+            break;
+
+        }
     }else{
         if(!conversionExitosa){
             Console.WriteLine("no se cargo un numero");
@@ -67,6 +107,7 @@ while(seguir){
             Console.WriteLine("opcion no valida");
         }
     }
+    Console.WriteLine("================ ¿SEGUIR? =================");
     Console.WriteLine("Presione 1 si desea salir, otro si no");
     string salir = Console.ReadLine();
     if(salir == "1"){
