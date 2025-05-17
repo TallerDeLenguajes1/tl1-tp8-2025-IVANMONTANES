@@ -66,38 +66,44 @@ while(seguir){
             case 1: 
                 // mostramos la lista de tareas pendientes //
                 Console.WriteLine("============================= TAREAS PENDIENTES ============================");
-                for(int i = 0; i < tareasPendientes.Count; i++){
-                tareasPendientes[i].MostrarTarea();
-                }
-                bool idSeleccionadoValido = false;
-                do{
-                    Console.WriteLine("ingrese el id de la tarea:");
-                    int tareaElegidaId = default;
-                    string tareaElegidaIdString = Console.ReadLine();
-                    idSeleccionadoValido = int.TryParse(tareaElegidaIdString, out tareaElegidaId);
-                    // si se carga un numero recorremos la lista buscando el id //
-                    if(idSeleccionadoValido){
-                        // variable para indicar si se encuentra la tarea con ese id //
-                        bool tareaEncontrada = false;
-                        for(int i = 0; i < tareasPendientes.Count; i++){
-                            if(tareaElegidaId == tareasPendientes[i].TareaId){
-                                tareaEncontrada = true;
-                                // agregamos la tarea a la lista de realizadas //
-                                tareasRealizadas.Add(tareasPendientes[i]);
-                                // eliminamos la tarea de la lista de pendientes //
-                                tareasPendientes.RemoveAt(i);
-                            }
-                        }
-                        // avisamos en caso de no encontrarse la tarea con ese id //
-                        if(!tareaEncontrada){
-                            Console.WriteLine("no se encontro una tarea con ese id");
-                        }else{
-                            Console.WriteLine("Se movio la tarea a realizadas");
-                        }
-                    }else{
-                        Console.WriteLine("no se cargo un numero");
+                if(tareasPendientes.Count != 1){
+                    for(int i = 0; i < tareasPendientes.Count; i++){
+                    tareasPendientes[i].MostrarTarea();
                     }
-                }while(!idSeleccionadoValido);
+                    bool idSeleccionadoValido = false;
+                    do{
+                        Console.WriteLine("ingrese el id de la tarea:");
+                        int tareaElegidaId = default;
+                        string tareaElegidaIdString = Console.ReadLine();
+                        idSeleccionadoValido = int.TryParse(tareaElegidaIdString, out tareaElegidaId);
+                        // si se carga un numero recorremos la lista buscando el id //
+                        if(idSeleccionadoValido){
+                            // variable para indicar si se encuentra la tarea con ese id //
+                            bool tareaEncontrada = false;
+                            for(int i = 0; i < tareasPendientes.Count; i++){
+                                if(tareaElegidaId == tareasPendientes[i].TareaId){
+                                    tareaEncontrada = true;
+                                    // agregamos la tarea a la lista de realizadas //
+                                    tareasRealizadas.Add(tareasPendientes[i]);
+                                    // eliminamos la tarea de la lista de pendientes //
+                                    tareasPendientes.RemoveAt(i);
+                                }
+                            }
+                            // avisamos en caso de no encontrarse la tarea con ese id //
+                            if(!tareaEncontrada){
+                                Console.WriteLine("no se encontro una tarea con ese id");
+                            }else{
+                                Console.WriteLine("Se movio la tarea a realizadas");
+                            }
+                        }else{
+                            Console.WriteLine("no se cargo un numero");
+                        }
+                    }while(!idSeleccionadoValido);
+                }else{
+                    Console.WriteLine("**** LA LISTA NO CONTIENE TAREAS ****");
+                }
+                
+                
             break;
 
             case 2:
@@ -127,6 +133,29 @@ while(seguir){
                     Console.WriteLine("no se encontro niguna tarea con ese descripcion");
                 }
             break;
+
+            case 3:
+                // mostramos las tareas pendientes //
+                Console.WriteLine("============================= TAREAS PENDIENTES ============================");
+                if(tareasPendientes.Count != 0){
+                    for(int i = 0; i < tareasPendientes.Count; i++){
+                    tareasPendientes[i].MostrarTarea();
+                    }
+                }else{
+                    Console.WriteLine("**** LA LISTA NO CONTIENE TAREAS ****");
+                }
+                
+
+                // mostramos las tareas realizadas //
+                Console.WriteLine("============================= TAREAS REALIZADAS ============================");
+                if(tareasRealizadas.Count != 0){
+                    for(int i = 0; i < tareasRealizadas.Count; i++){
+                    tareasRealizadas[i].MostrarTarea();
+                    }
+                }else{
+                    Console.WriteLine("**** LA LISTA NO CONTIENE TAREAS ****");
+                }
+            break;
     }
         }else{
             if(!conversionExitosa){
@@ -143,14 +172,3 @@ while(seguir){
         }
 }
 Console.WriteLine("saliendo...");
-
-
-/*
-// mostramos las tareas pendientes //
-Console.WriteLine("============================= TAREAS PENDIENTES ============================");
-for(int i = 0; i < tareasPendientes.Count; i++){
-    tareasPendientes[i].MostrarTarea();
-}
-Console.WriteLine("ingrese el id de la tarea:");
-int tareaElegida = default;
-*/
