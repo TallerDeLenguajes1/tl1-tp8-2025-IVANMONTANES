@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Intrinsics.Arm;
 using EspacioTareas;
+/*
 // generamos el numero random para la cantidad de tareas //
 Random numeroRandom = new Random();
 int n = numeroRandom.Next(1,25);
@@ -46,3 +47,41 @@ for(int i = 0; i < n; i++){
     // añadimos la tarea a la lista //
     tareasPendientes.Add(tareaCargada);
 }
+*/
+
+// interfaz //
+bool seguir = true;
+while(seguir){
+    Console.WriteLine("1: MARCAR TAREA COMO REALIZADA");
+    Console.WriteLine("2: BUSCAR TAREA PENDIENTE POR DESCRIPCION");
+    Console.WriteLine("3: MOSTRAR TODAS LAS TAREAS");
+    Console.WriteLine("eliga una opcion:");
+    int opcionElegida = default;
+    bool conversionExitosa = int.TryParse(Console.ReadLine(), out opcionElegida);
+    if(conversionExitosa && opcionElegida >= 1 && opcionElegida <= 3){
+        Console.WriteLine("bien");
+    }else{
+        if(!conversionExitosa){
+            Console.WriteLine("no se cargo un numero");
+        }else{
+            Console.WriteLine("opcion no valida");
+        }
+    }
+    Console.WriteLine("Presione 1 si desea salir, otro si no");
+    string salir = Console.ReadLine();
+    if(salir == "1"){
+        seguir = false;
+    }
+}
+Console.WriteLine("saliendo...");
+
+
+/*
+// mostramos las tareas pendientes //
+Console.WriteLine("============================= TAREAS PENDIENTES ============================");
+for(int i = 0; i < tareasPendientes.Count; i++){
+    tareasPendientes[i].MostrarTarea();
+}
+Console.WriteLine("ingrese el id de la tarea:");
+int tareaElegida = default;
+*/

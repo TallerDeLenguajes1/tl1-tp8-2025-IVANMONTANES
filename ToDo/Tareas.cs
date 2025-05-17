@@ -19,6 +19,14 @@ namespace EspacioTareas
             this.descripcion = descripcion;
             this.duracion = duracion;
         }
-
+         
+        
+        // metodo para mostrar la tarea //
+        public void MostrarTarea(){
+            Console.WriteLine("================== TAREA ==================");
+            Console.WriteLine($"ID = {tareaId}");
+            Console.WriteLine($"DESCRIPCION = {descripcion}");
+            Console.WriteLine($"DURACION = {duracion}");
+        }
     }
 }
