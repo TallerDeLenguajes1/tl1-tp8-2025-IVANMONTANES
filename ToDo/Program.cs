@@ -52,6 +52,7 @@ for(int i = 0; i < n; i++){
 
 // interfaz //
 bool seguir = true;
+Console.WriteLine("======================== INTERFAZ ========================");
 while(seguir){
     Console.WriteLine("1: MARCAR TAREA COMO REALIZADA");
     Console.WriteLine("2: BUSCAR TAREA PENDIENTE POR DESCRIPCION");
@@ -99,20 +100,47 @@ while(seguir){
                 }while(!idSeleccionadoValido);
             break;
 
-        }
-    }else{
-        if(!conversionExitosa){
-            Console.WriteLine("no se cargo un numero");
+            case 2:
+                // cargamos la cadena //
+                bool cadenaCargada = false;
+                string cadenaACargar = string.Empty;
+                while(!cadenaCargada){
+                    Console.WriteLine("ingrese una cadena:");
+                    cadenaACargar = Console.ReadLine();
+                    if(string.IsNullOrEmpty(cadenaACargar)){
+                        Console.WriteLine("ingrese una cadena no vacia");
+                    }else{
+                        cadenaCargada = true;
+                    }
+                }
+                // variable para indicar si se encontro alguna coincidencia //
+                bool seEncontroCoincidencia = false;
+                // recorremos la lista buscando la coicidencia //
+                for(int i = 0; i < tareasPendientes.Count; i++){
+                    if(tareasPendientes[i].Descripcion.Contains(cadenaACargar)){
+                        // mostramos la tarea //
+                        tareasPendientes[i].MostrarTarea();
+                        seEncontroCoincidencia = true;
+                    }
+                }
+                if(!seEncontroCoincidencia){
+                    Console.WriteLine("no se encontro niguna tarea con ese descripcion");
+                }
+            break;
+    }
         }else{
-            Console.WriteLine("opcion no valida");
+            if(!conversionExitosa){
+                Console.WriteLine("no se cargo un numero");
+            }else{
+                Console.WriteLine("opcion no valida");
+            }
         }
-    }
-    Console.WriteLine("================ ¿SEGUIR? =================");
-    Console.WriteLine("Presione 1 si desea salir, otro si no");
-    string salir = Console.ReadLine();
-    if(salir == "1"){
-        seguir = false;
-    }
+        Console.WriteLine("================ ¿SEGUIR? =================");
+        Console.WriteLine("Presione 1 si desea salir, otro si no");
+        string salir = Console.ReadLine();
+        if(salir == "1"){
+            seguir = false;
+        }
 }
 Console.WriteLine("saliendo...");
 
